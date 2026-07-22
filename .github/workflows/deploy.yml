@@ -42,7 +42,7 @@ jobs:
           # Point this to your React build folder:
           # - Use './dist' if using Vite
           # - Use './build' if using Create React App (CRA)
-          path: ./dist
+          path: ./build
 
   deploy:
     environment:
