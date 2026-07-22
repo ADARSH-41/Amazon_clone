@@ -11,19 +11,6 @@ This repository is configured to automatically build and deploy the React applic
 4. Remove `"homepage": "https://adarsh-41.github.io/Amazon_clone"` from `package.json`
 5. After installation of all the dependencies, execute the command `npm start` to start the application on localhost 3000 port.
 
-## 🛠️ How the Github Deployment Works?
-
-The deployment pipeline is managed by a custom GitHub Actions workflow located at `.github/workflows/deploy.yml`.
-
-### Automated Workflow Steps:
-1. **Trigger**: Triggers automatically on every `push` to the `main` branch (or via manual trigger from the **Actions** tab).
-2. **Environment Setup**: Provisions an `ubuntu-latest` runner and installs Node.js.
-3. **Build Stage**:
-   - Runs `npm ci` to install project dependencies.
-   - Runs `npm run build` to compile static assets.
-4. **Artifact Upload**: Packages the output directory (`dist/` or `build/`) as a GitHub Pages artifact.
-5. **Deployment**: Deploys the built artifact directly to GitHub Pages using official GitHub Actions.
-
 ---
 
 ## 🚀 Setting Up Deployment for Your Own Repository
@@ -46,12 +33,38 @@ Depending on your build tool, ensure your app is configured for GitHub Pages rou
     plugins: [react()],
   });
 
--> If you are using create-react-app, ensure to add `"homepage": "https://<your-username>.github.io/Amazon_clone"` in your `package.json` file.
+-> If you are using create-react-app, ensure to add 
+```json 
+"homepage": "https://<your-username>.github.io/Amazon_clone"
+```
+   in your `package.json` file.
 
 ### 3. Handle Static Assets (.nojekyll)
-GitHub Pages defaults to processing sites with Jekyll, which ignores files starting with underscores (_). To prevent build assets from breaking: Include a `.nojekyll` file in your repository root or public/ folder.
+GitHub Pages defaults to processing sites with Jekyll, which ignores files starting with underscores ( _ ). To prevent build assets from breaking: Include a `.nojekyll` file in your repository root or public/ folder.
 
-In past, I had deployed the application in codesandbox.io the below is the deployment repository and page.
+### 4. Update path variable in deploy.yml file.
+Based on your build tool, update `path` as follows:
 
+- for vite use  `path: ./dist`
+- for Create React App use  `path: ./build`
+
+---
+
+## 🛠️ How the Github Deployment Works?
+
+The deployment pipeline is managed by a custom GitHub Actions workflow located at `.github/workflows/deploy.yml`.
+
+### Automated Workflow Steps:
+1. **Trigger**: Triggers automatically on every `push` to the `main` branch (or via manual trigger from the **Actions** tab).
+2. **Environment Setup**: Provisions an `ubuntu-latest` runner and installs Node.js.
+3. **Build Stage**:
+   - Runs `npm ci` to install project dependencies.
+   - Runs `npm run build` to compile static assets.
+4. **Artifact Upload**: Packages the output directory (`dist/` or `build/`) as a GitHub Pages artifact.
+5. **Deployment**: Deploys the built artifact directly to GitHub Pages using official GitHub Actions.
+
+---
+
+In past, I had deployed the application in codesandbox.io the below is the deployment source code repository and deployed web app's page.
 - codesandbox.io repository : https://codesandbox.io/s/ancient-dawn-7y6k6u
 - Deployed web app : https://7y6k6u.csb.app/
